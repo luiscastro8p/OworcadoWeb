@@ -5,17 +5,15 @@ import { reducer } from './reducer';
 import { Row, Col, Card, FormGroup, Label, Input, Button } from 'reactstrap';
 import './style.css';
 
-import socketIOClient from 'socket.io-client';
-
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+
+import { socket } from '../../socket';
 
 const MySwal = withReactContent(Swal);
 
 const Home = ({ history }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  const socket = socketIOClient('localhost:8080');
 
   socket.on('new-user', data => {
     Swal.fire({
