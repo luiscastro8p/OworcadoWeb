@@ -1,3 +1,5 @@
 export const initialState = {
-    var:'hola'
+  user: {
+    nick: '',
+  },
 };
