@@ -8,10 +8,11 @@ import { Modall } from "../../Components/Modall";
 
 const Room = ({ history }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-console.log(state);
+  console.log(state);
   useEffect(() => {}, []);
   const modal = () => {};
   const closeModal = () => {
+    dispatch({ type: actions.SetValue, var: "roomValue", payload: "" });
     dispatch({ type: actions.Modal, payload: false });
   };
   const openModal = () => {
@@ -38,6 +39,25 @@ console.log(state);
                 <button className="btn btn-info" onClick={openModal}>
                   Crear sala
                 </button>
+              </Col>
+              <Col xl="12">
+                {state.room.map((item) => {
+                  return (
+                    <div className="card-rooms m-3">
+                      <Row
+                        className="text-center p-4"
+                        onClick={(e) => history.push("/rooms/" + item.id)}
+                      >
+                        <Col lg="6" xl="6">
+                          {item.id}
+                        </Col>
+                        <Col lg="6" xl="6">
+                          {item.jugadores}/2
+                        </Col>
+                      </Row>
+                    </div>
+                  );
+                })}
               </Col>
             </Row>
           </Col>
