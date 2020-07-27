@@ -1,4 +1,5 @@
 export const initialState = {
-    modal: false,
-    roomValue:''
+  modal: false,
+  roomValue: '',
+  room: [],
 };

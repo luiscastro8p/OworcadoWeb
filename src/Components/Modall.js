@@ -21,7 +21,11 @@ export const Modall = ({
   open,
 }) => {
   return (
-    <Modal isOpen={open} toggle={hide} className={className}>
+    <Modal
+      isOpen={open}
+      toggle={hide}
+      className={className}
+    >
       <ModalHeader toggle={hide}>{tittle}</ModalHeader>
       <ModalBody>
         <FormGroup>
