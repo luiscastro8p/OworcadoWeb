@@ -1,15 +1,25 @@
-import React from "react";
-import { Row, Col } from "reactstrap";
+import React from 'react';
+import { Row } from 'reactstrap';
+import './style.css';
 
-export const Teclado = ({ abecedario,submit }) => {
+export const Teclado = ({ abecedario, submit }) => {
   return (
     <div>
-      <Row className="d-flex justify-content-center">
-        {abecedario.map((item) => {
+      <Row className='contenedordeletras'>
+        {abecedario.map((item, idx) => {
           return (
-            <Col sm="3" className='p-2'>
-                  <button value={item} className="btn btn-success p-3" onClick={e => submit(e.target.value)}>{item}</button>
-            </Col>
+            <button
+              disabled={!item.status}
+              value={item.letter}
+              className={
+                item.status
+                  ? 'btn btn-success p-3 botonletra'
+                  : 'btn btn-danger p-3 botonletra'
+              }
+              onClick={e => submit(idx)}
+            >
+              {item.letter}
+            </button>
           );
         })}
       </Row>

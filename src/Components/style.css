@@ -1,0 +1,14 @@
+.botonletra {
+  margin-right: 10px;
+  font-size: 30px !important;
+  font-weight: bold;
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+.contenedordeletras {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
