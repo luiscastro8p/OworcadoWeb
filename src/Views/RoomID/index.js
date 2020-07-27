@@ -1,75 +1,109 @@
-import React, { useEffect, useReducer } from "react";
-import { actions } from "./actions";
-import { initialState } from "./constants";
-import { reducer } from "./reducer";
-import { Row, Col } from "reactstrap";
-import equis from "./equis.png";
-import Modall from "../../Components/Modall";
-import "./style.css";
-import Teclado from "../../Components/Teclado";
+import React, { useEffect, useReducer } from 'react';
+import { actions } from './actions';
+import { initialState } from './constants';
+import { reducer } from './reducer';
+import { Row, Col, Container } from 'reactstrap';
+import equis from './equis.png';
+import Modall from '../../Components/Modall';
+import './style.css';
+import Teclado from '../../Components/Teclado';
+import { socket } from '../../socket';
+
+import Swal from 'sweetalert2';
 
 const RoomID = ({ history }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
+
   useEffect(() => {
-    const start = setTimeout(() => {
+    dispatch({ type: actions.resetAll });
+    socket.emit('cuantossomos');
+    socket.on('empezarPartida', palabra => {
       dispatch({ type: actions.startRoom, payload: true });
-    }, 1000);
-    return () => clearTimeout(start);
-  }, []);
-  const letra = (value) => {
-    console.log(value);
-    let array = state.text;
-    array.push(value);
-    dispatch({ type: actions.SetValue, var: "text", payload: array });
+      dispatch({ type: actions.setWord, payload: palabra });
+    });
+    socket.on('selec-letra', value => {
+      dispatch({ type: actions.selectLetter, payload: value });
+    });
+  }, [history]);
+
+  const letra = value => {
+    dispatch({ type: actions.selectLetter, payload: value });
+    socket.emit('selec-letra', value);
   };
+
+  state.derrota &&
+    Swal.fire({
+      icon: 'failed',
+      title: 'Derrota',
+      text: `Han perdido la partida unu`,
+    }).then(() => {
+      history.goBack();
+      socket.emit('finish');
+    });
+
+  state.victoria &&
+    Swal.fire({
+      icon: 'success',
+      title: 'Victoria!',
+      text: `Se han salvado de esta`,
+    }).then(() => {
+      history.goBack();
+      socket.emit('finish');
+    });
+
   return (
     <>
       {state.start ? (
-        <Row className="text-center d-flex justify-content-center">
-          <Col sm="12" className="mt-5 mb-5">
-            <div>
-              <h3>Oworcado</h3>
-              <div className='d-flex justify-content-center'>
-                {state.text.length > 0 && (
-                  <div>
-                    <div className="pos-title">
-                      {state.text.map((item) => {
-                        return <p className="txt-title">{item}</p>;
-                      })}
+        <Container>
+          <Row className='text-center d-flex justify-content-center'>
+            <Col sm='12' className='mt-5 mb-5'>
+              <div>
+                <h3>OWO-AHORCADO</h3>
+                <div className='d-flex justify-content-center'>
+                  {state.text.length > 0 && (
+                    <div>
+                      <div className='pos-title'>
+                        {state.text.map((item, idx) => {
+                          return (
+                            <div key={idx} className='letterContainer'>
+                              <span
+                                className={
+                                  item.status ? 'txt-title-black' : 'txt-title'
+                                }
+                              >
+                                {item.letter}
+                              </span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
-          </Col>
-          <Col sm="3">
-            {state.room.perdidas.length >= 1 && (
-              <img src={equis} alt="equis" width="80" />
-            )}
-          </Col>
-          <Col sm="3">
-            {state.room.perdidas.length >= 2 && (
-              <img src={equis} alt="equis" width="80" />
-            )}
-          </Col>
-          <Col sm="3">
-            {state.room.perdidas.length === 3 && (
-              <img src={equis} alt="equis" width="80" />
-            )}
-          </Col>
-          <Col sm="8">
-            <p>hola</p>
-          </Col>
-          <Col sm="3">
-            <h3>Inserta un texto</h3>
-            <Teclado abecedario={state.abecedario} submit={letra} />
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm='12'>
+              <div className='equis'>
+                {state.fails.map(() => {
+                  return <img src={equis} className='equistyle' />;
+                })}
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm='12'>
+              {state.start && (
+                <Teclado abecedario={state.abecedario} submit={letra} />
+              )}
+            </Col>
+          </Row>
+        </Container>
       ) : (
         <div>
           {state.modal && (
-            <Modall open={state.modal} tittle="Oworcado" loading={true} />
+            <Modall open={state.modal} tittle='Oworcado' loading={true} />
           )}
         </div>
       )}

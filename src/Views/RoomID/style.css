@@ -1,10 +1,53 @@
 .pos-title {
-    display: flex;
-    flex-direction: row;
-
+  display: flex;
+  flex-direction: row;
 }
 
 .txt-title {
-    width: 20px;
-    margin: 0px;
+  font-size: 50px;
+  font-weight: bold;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  color: #ffffff;
+}
+
+.txt-title-black {
+  font-size: 50px;
+  font-weight: bold;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  color: #000000;
+}
+
+.letterContainer {
+  box-sizing: border-box;
+  display: block;
+  width: 50px;
+  margin-right: 10px;
+  border-bottom: 3px solid #000000;
+}
+
+.equis {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 120px;
+  margin: auto;
+}
+
+.equistyle {
+  width: 70px;
+  height: 70px;
+  border-radius: 5px;
+  margin-right: 10px;
 }
