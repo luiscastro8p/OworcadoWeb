@@ -14,5 +14,5 @@ export const initialState = {
       id: 433,
       jugadores: 1,
     },
-  ],
+    ]
 };
