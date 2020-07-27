@@ -5,8 +5,13 @@ export const reducer = (state, action) => {
     case actions.startRoom:
       return {
         ...state,
-          start: action.payload,
-          modal:false
+        start: action.payload,
+        modal: false,
+      };
+    case actions.SetValue:
+      return {
+        ...state,
+        [action.var]: action.payload,
       };
     default:
       return state;

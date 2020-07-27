@@ -1,0 +1,10 @@
+.pos-title {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.txt-title {
+    width: 20px;
+    margin: 0px;
+}
