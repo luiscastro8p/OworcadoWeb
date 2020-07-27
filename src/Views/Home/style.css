@@ -1,0 +1,14 @@
+.btn-outline-success:hover {
+    box-shadow: green;
+    transition: ease-in-out;
+    width: 100%;
+    transition: ease-in-out 0.8s;
+
+}
+
+.btn-outline-success {
+    width: 100px;
+    box-shadow: green;
+    transition: ease-in-out 0.8s;
+
+}

@@ -19,7 +19,7 @@ const Room = ({ history }) => {
       dispatch({ type: actions.Modal, payload: false });
       history.push(`/rooms/${id}`);
     });
-  }, []);
+  }, [history]);
 
   const join_room = id => {
     socket.emit('join-room', id);
@@ -46,7 +46,7 @@ const Room = ({ history }) => {
   return (
     <>
       <Container>
-        <Row>
+        <Row >
           <Col>
             <Row>
               <Col>

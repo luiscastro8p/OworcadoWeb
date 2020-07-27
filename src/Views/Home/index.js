@@ -4,9 +4,9 @@ import { initialState } from './constants';
 import { reducer } from './reducer';
 import { Row, Col, Card, FormGroup, Label, Input, Button } from 'reactstrap';
 import './style.css';
-
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import fondo from './loginFondo.jpg'
 
 import { socket } from '../../socket';
 
@@ -36,31 +36,38 @@ const Home = ({ history }) => {
 
   return (
     <>
-      <Row
-        className='d-flex justify-content-center align-items-center'
-        style={{ height: '800px', width: '100%' }}
-      >
-        <Col sm='12' md='12' lg='6' xl='6'>
-          <Card>
-            <div className='text-center m-4'>
-              <p>hola</p>
-            </div>
-            <FormGroup className='m-4'>
-              <Label for='nickname'>Nickname</Label>
-              <Input
-                onChange={handlename}
-                value={state.user.nick}
-                type='text'
-                name='nickname'
-                id='nickname'
-              />
-            </FormGroup>
-            <Button onClick={registrarse} color='success'>
-              Entrar
-            </Button>
-          </Card>
-        </Col>
-      </Row>
+      <div style={{ backgroundImage: `url(${fondo})`, height: "100vh" }}>
+        <Row
+          className="d-flex justify-content-center align-items-center"
+          style={{ height: "800px", width: "100%" }}
+        >
+          <Col sm="12" md="12" lg="4" xl="4">
+            <Card style={{ backgroundColor: "rgba(0,0,0,0.03)" }}>
+              <div className="text-center m-4">
+                <h3 style={{ fontWeight: "bold" }}>OWO-AHORCADO</h3>
+              </div>
+              <FormGroup className="m-4">
+                <p for="nickname">
+                  <b>Nickname</b>
+                </p>
+                <Input
+                  onChange={handlename}
+                  value={state.user.nick}
+                  type="text"
+                  name="nickname"
+                  id="nickname"
+                />
+              </FormGroup>
+              <div className='d-flex justify-content-center align-content-center'>
+
+              <button  className='btn btn-outline-success' onClick={registrarse}  style={{backgroundColor:'rgba(16,65,27,0.5)'}}>
+                Entrar
+              </button>
+              </div>
+            </Card>
+          </Col>
+        </Row>
+      </div>
     </>
   );
 };
